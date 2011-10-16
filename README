@@ -1,0 +1,10 @@
+This script does a basic conversion of the Ubuntu package provided by Dropbox
+to allow it to be installed on a Debian system.
+
+The package contents are not altered, only the control information.  It is
+completely possible that this will not work for future versions of the package.
+I have only tested it on the nautilus-dropbox_0.6.9_amd64.deb package, but it
+should work on the i386 package as well.
+
+I have successfully installed the resulting package on both Debian testing and
+Linux Mint Debian Edition.
