@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Convert Dropbox package for Ubuntu to work on Debian
+#
+# Ubuntu added an epoch to their version of libnautilus-extension
+# preventing the package from installing on Debian.  Rebuild it
+# without the epoch to allow it to install.
+
+orig="$1"
+dir=${orig%.deb}
+
+if [ "$dir.deb" != "$orig" ]; then
+	echo "Supply deb filename" >&2
+	exit 1
+fi
+
+
+dpkg-deb -R $orig $dir
+perl -i -pe 's/(libnautilus-extension1 \(>= )1:([\d.]+\))/$1$2/' \
+	$dir/DEBIAN/control
+mv $orig $orig.orig
+dpkg-deb -b $dir
+rm -rf $dir
